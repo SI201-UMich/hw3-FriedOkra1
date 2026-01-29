@@ -1,12 +1,13 @@
-# Name:
-# Student ID:
-# Email:
+# Name: Ayush Madhav Kumar
+# Student ID: 3776 1271
+# Email: ayushmk@umich.edu
 # Who or what you worked with on this homework (including generative AI like ChatGPT):
 # If you worked with generative AI also add a statement for how you used it.
 # e.g.:
 # Asked ChatGPT hints for debugging and suggesting the general structure of the code
 # Did your use of GenAI on this assignment align with your goals and guidelines in 
 #    your Gen AI contract? If not, why?
+# No generative AI was used for this assignment.
 
 import random
 import io
@@ -32,8 +33,9 @@ class CouponDispenser:
         Args:
             coupon_cards (list[str]): list of possible coupons users can receive.
         """
-        # TODO: Implement per instructions
-        pass
+        self.coupon_cards = coupon_cards
+        self.customer_roster = []
+        self.issued_indices = []
 
     def __str__(self):
         """
@@ -43,8 +45,9 @@ class CouponDispenser:
         Returns:
             str
         """
-        # TODO: Implement per instructions
-        pass
+        if not self.coupon_cards:
+            return ""
+        return "|".join(self.coupon_cards)
 
     def issue_coupon(self, name):
         """
@@ -60,8 +63,16 @@ class CouponDispenser:
         Returns:
             str: message as described above
         """
-        # TODO: Implement per instructions
-        pass
+        if not self.coupon_cards:
+            return "The box is empty."
+        if name in self.customer_roster:
+            idx = self.customer_roster.index(name)
+            coupon = self.coupon_cards[self.issued_indices[idx]]
+            return "That name already has a coupon: " + coupon
+        chosen_index = random.randint(0, len(self.coupon_cards) - 1)
+        self.customer_roster.append(name)
+        self.issued_indices.append(chosen_index)
+        return self.coupon_cards[chosen_index]
 
     def distribute_session(self):
         """
@@ -78,8 +89,28 @@ class CouponDispenser:
 
         Reminder: Use lists only (no dictionaries).
         """
-        # TODO: Implement per instructions 
-        pass
+        round_num = 1
+        while True:
+            prompt = f"Round {round_num} - Enter a name (or a comma-separated list), or type 'show' or 'exit': "
+            user_input = input(prompt).strip()
+            if user_input == "exit":
+                print("Goodbye!")
+                break
+            if user_input == "show":
+                lines = []
+                for i in range(len(self.customer_roster)):
+                    name = self.customer_roster[i]
+                    idx = self.issued_indices[i]
+                    coupon = self.coupon_cards[idx]
+                    lines.append(f"{name}: {coupon}")
+                print("\n".join(lines))
+                round_num += 1
+                continue
+            names = [n.strip() for n in user_input.split(",") if n.strip()]
+            for name in names:
+                msg = self.issue_coupon(name)
+                print(msg)
+            round_num += 1
 
     def tally_distribution(self):
         """
@@ -96,8 +127,16 @@ class CouponDispenser:
         Returns:
             None
         """
-        # TODO: Implement per instructions
-        pass
+        if not self.issued_indices:
+            print("Empty")
+            return
+        for c in range(len(self.coupon_cards)):
+            coupon = self.coupon_cards[c]
+            count = 0
+            for i in self.issued_indices:
+                if i == c:
+                    count += 1
+            print(f"{coupon} distribution count: {count}.")
 
 
 def main():
@@ -115,11 +154,10 @@ def main():
         "Free extra espresso shot",
     ]
 
-    # Uncomment the lines below as you implement each function.
-    # box = CouponDispenser(coupon_cards)
-    # box.distribute_session()
-    # box.tally_distribution()
-    pass
+    box = CouponDispenser(coupon_cards)
+    box.distribute_session()
+    box.tally_distribution()
+    # test()
 
 
 # -----------------------
