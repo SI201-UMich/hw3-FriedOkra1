@@ -1,0 +1,127 @@
+Homework 3: Coffee Coupon Dispenser
+
+You will create a small program that assigns one random coffee coupon to each unique customer.
+
+Overview
+
+In this homework, you will write a small coupon dispenser program for a campus coffee shop. The program will loop asking you to enter a customer name (or names), show, or exit.
+
+- If you type exit (exact spelling) the program will print "Goodbye!" and stop.
+
+- If you enter one or more customer names (separated by commas):
+  - A coupon will be picked at random from a list of coupons for each name if that name doesn't already have an assigned coupon.
+
+- If you type show (exact spelling) it will display a string with each customer's name and coupon.
+
+Important: You must store and manage your data using only lists (no dictionaries).
+
+One example run (Informal):
+
+1. At the start of the program, a CouponDispenser object is initialized with a predefined list of coupons which are defined in the starter code. The coupons will be stored in the object's coupon_cards list (you can change these if you wish in the starter code). For example, the predefined list of coupons is as follows:
+
+[
+"10% off",
+"Free small coffee",
+"Buy 1 get 1 half off",
+"Free extra espresso shot",
+]
+
+2. The user enters customers' names: Ava, Ben
+
+3. Ben and Ava are each assigned one coupon at random from the coupon_cards list if they don't already have a coupon. It is possible that they are assigned the same type of coupon.
+
+4. The user types show to display the assignments. This shows the coupon for each name on a single line (Hint: print the newline character \n to force a new line).
+
+Ava: 10% off
+Ben: Buy 1 get 1 half off
+
+5. The user can repeat steps 2-4 above with other names.
+
+6. The user types exit, the program prints the line below and ends:
+
+"Goodbye!"
+
+Note: You can call test() on the last line in the main function to test each function.
+
+Requirements
+
+In this assignment, you will implement a CouponDispenser class with the following methods:
+
+1. __init__(self, coupon_cards)
+
+Initialize a new CouponDispenser object.
+
+- Set coupon_cards to the coupon_cards parameter (a list of strings). This list contains all available coupons.
+
+- Set customer_roster to an empty list. This list will store customer names, in the order they received a coupon.
+
+- Set issued_indices to an empty list. This list will store the index of the coupon given to each customer. The index at position i in issued_indices matches the customer at position i in customer_roster. Example: customer_roster[0] == "Amy" and issued_indices[0] == 2, then Amy was assigned coupon_cards[2].
+
+2. __str__(self)
+
+Returns the string representation of CouponDispenser.
+
+- Return a single string with all coupons in coupon_cards joined by pipes (|). For example:
+
+box_multi = CouponDispenser(["10% off", "Free small coffee"])
+Then
+print(box_multi)
+The terminal displays: 10% off|Free small coffee
+
+Submission Steps
+
+Step 1: Click on GitHub classroom link to fork (make a copy) of the GitHub repository.
+
+Step 2: Clone that repo to your local machine with: git clone (link)
+
+Step 3: Open your file (or the whole folder) in VSCode.
+
+Step 4: Read the instructions and grading rubric in HW3_Instructions.pdf
+
+Step 5: Modify the code in HW3.py. To add this file to the staging area for a commit use: git add HW3.py
+
+Step 6: As you work, to commit or save your changes locally: git status, git add (file), git commit -m (message). Please commit at least 4 times while working on your homework; you might commit each time you finish writing a new function or method.
+
+Step 7: Upload your saved changes to GitHub: git push
+
+Step 8: Submit a link for your repository on GitHub on Canvas by the due date. You can find the link in the browser window.
+
+If something isn't working and you've tried to get help, don't panic. You can get the files from Canvas under Files, Homework, HW3 and then manually upload them to Github. This option will not always be available, so come to office hours or ask your GSI and we can help you figure out Git and Github.
+
+Grading Rubric
+
+__init__ correctly initializes coupon_cards, customer_roster, and issued_indices: 6 pts
+
+__str__ joins non-empty coupon_cards with pipes: 3 pts
+
+__str__ returns empty string when coupon_cards is empty: 3 pts
+
+issue_coupon returns "The box is empty." when coupon_cards is empty: 6 pts
+
+issue_coupon correctly re-reports an already assigned name (no state change): 6 pts
+
+issue_coupon randomly selects from all coupon indices (repeats allowed) and appends chosen index for new names: 6 pts
+
+issue_coupon appends new names to customer_roster (kept aligned with issued_indices): 6 pts
+
+distribute_session starts with the specified prompt format: 3 pts
+
+distribute_session correctly implements comma-separated names: 6 pts
+
+distribute_session correctly implements the exit command: 3 pts
+
+distribute_session correctly implements the show command: 6 pts
+
+coupon_cards list is properly defined and used in main(): 2 pts
+
+CouponDispenser is properly constructed and used in main(): 2 pts
+
+distribute_session is called correctly in main(): 2 pts
+
+Extra credit: tally_distribution prints coupon distribution counts correctly: 2 pts
+
+Extra credit: tally_distribution prints the distribution count in format (coupon) distribution count: (count): 2 pts
+
+Extra credit: tally_distribution is called and its output is displayed in main(): 2 pts
+
+Total: 60 points possible plus extra credit.
