@@ -68,7 +68,7 @@ class CouponDispenser:
         if name in self.customer_roster:
             idx = self.customer_roster.index(name)
             coupon = self.coupon_cards[self.issued_indices[idx]]
-            return "That name already has a coupon: " + coupon
+            return f"That name already has a coupon: {coupon}"
         chosen_index = random.randint(0, len(self.coupon_cards) - 1)
         self.customer_roster.append(name)
         self.issued_indices.append(chosen_index)
@@ -108,8 +108,8 @@ class CouponDispenser:
                 continue
             names = [n.strip() for n in user_input.split(",") if n.strip()]
             for name in names:
-                msg = self.issue_coupon(name)
-                print(msg)
+                result = self.issue_coupon(name)
+                print(result)
             round_num += 1
 
     def tally_distribution(self):
@@ -133,8 +133,8 @@ class CouponDispenser:
         for c in range(len(self.coupon_cards)):
             coupon = self.coupon_cards[c]
             count = 0
-            for i in self.issued_indices:
-                if i == c:
+            for idx in self.issued_indices:
+                if idx == c:
                     count += 1
             print(f"{coupon} distribution count: {count}.")
 
@@ -157,7 +157,6 @@ def main():
     box = CouponDispenser(coupon_cards)
     box.distribute_session()
     box.tally_distribution()
-    # test()
 
 
 # -----------------------
